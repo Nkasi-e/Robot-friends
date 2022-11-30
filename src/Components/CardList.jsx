@@ -1,5 +1,5 @@
-import React from "react";
-import Card from "./Card";
+import React from 'react';
+import Card from './Card';
 //calling the robot props with destructuring method
 const CardList = ({ robots }) => {
   return (

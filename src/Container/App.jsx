@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import CardList from "../Components/CardList";
-import SearchBox from "../Components/SearchBox";
-import Scroll from "../Components/Scroll";
-import "./App.css";
+import React, { Component } from 'react';
+import CardList from '../Components/CardList';
+import SearchBox from '../Components/SearchBox';
+import Scroll from '../Components/Scroll';
+import ErrorBoundary from '../Components/ErrorBoundary';
+import './App.css';
 
 //A state is an object that describes your application
 
@@ -11,13 +12,13 @@ class App extends Component {
     super();
     this.state = {
       robots: [],
-      searchfield: "",
+      searchfield: '',
     };
   }
 
   //fetching data with an asynchronous fetch function
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => {
         return response.json();
       })
@@ -38,19 +39,19 @@ class App extends Component {
       );
     });
     //if it's taking time to load
-    if (robots.length === 0) {
-      return <h1>Loading...</h1>;
-    } else {
-      return (
-        <div className="tc">
-          <h1 className="f1">Robot Peers</h1>
-          <SearchBox searchChange={this.onSearchChange} />
-          <Scroll>
+    return !robots.length ? (
+      <h3>Loading...</h3>
+    ) : (
+      <div className="tc">
+        <h1 className="f1">Robot Peers</h1>
+        <SearchBox searchChange={this.onSearchChange} />
+        <Scroll>
+          <ErrorBoundary>
             <CardList robots={filterUser} />
-          </Scroll>
-        </div>
-      );
-    }
+          </ErrorBoundary>
+        </Scroll>
+      </div>
+    );
   }
 }
 

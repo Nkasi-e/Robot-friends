@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 //Destructuring the robots array as a prop
 const Card = ({ id, name, email, username }) => {
   return (
